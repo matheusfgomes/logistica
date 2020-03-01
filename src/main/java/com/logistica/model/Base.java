@@ -3,14 +3,24 @@ package com.logistica.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Base
  * 
  * @see
  */
+@Entity
+@Table(name = "base")
 public class Base implements Serializable, Registro {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 54581584231L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBase;
     private Integer codBase;
     private String cidade;

@@ -15,9 +15,5 @@ public class MotoristaController {
         return "Hello World";
     }
 
-    @RequestMapping("/")
-    public String indexed() {
-        return "Hello World";
-    }
 
 }
