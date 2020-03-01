@@ -20,6 +20,10 @@ public class Tarefa implements Serializable, Registro {
     private List<Carga> cargas;
     private Integer numDocumento;
     private LocalDate previsaoEntrega;
+    private LocalDate alteradoEm;
+    private String alteradoPor;
+    private LocalDate criandoEm;
+    private String criadoPor;
 
     public Integer getIdTarefa() {
         return idTarefa;
@@ -95,38 +99,42 @@ public class Tarefa implements Serializable, Registro {
 
     @Override
     public String getCriadoPor() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.criadoPor;
     }
 
     @Override
-    public void setCriadoPor(final String criadoPor) {
-        // TODO Auto-generated method stub
-
+    public void setCriadoPor(String criadoPor) {
+        this.criadoPor = criadoPor;
     }
 
     @Override
     public String getAlteradoPor() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.alteradoPor;
     }
 
     @Override
-    public void setAlteradoPor(final String alteradoPor) {
-        // TODO Auto-generated method stub
-
+    public void setAlteradoPor(String alteradoPor) {
+        this.alteradoPor = alteradoPor;
     }
 
     @Override
     public LocalDate getCriadoEm() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.criandoEm;
+    }
+
+    @Override
+    public void setCriadoEm(LocalDate date) {
+        this.criandoEm = date;
+    }
+
+    @Override
+    public void setAlteradoEm(LocalDate date) {
+        this.alteradoEm = date;
     }
 
     @Override
     public LocalDate getAlteradoEm() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.alteradoEm;
     }
 
 }

@@ -13,6 +13,11 @@ public class CheckPoint implements Serializable, Registro {
     private String descricao;
     private DescricaoCheckPoint descricaoCheckPoint;
     private TipoOcorrencia tipoOCOrrencia;
+    private LocalDate alteradoEm;
+    private String alteradoPor;
+    private LocalDate criandoEm;
+    private String criadoPor;
+
 
     public Integer getIdCheckPoint() {
         return idCheckPoint;
@@ -45,41 +50,44 @@ public class CheckPoint implements Serializable, Registro {
     public void setTipoOCOrrencia(TipoOcorrencia tipoOCOrrencia) {
         this.tipoOCOrrencia = tipoOCOrrencia;
     }
-
     @Override
     public String getCriadoPor() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.criadoPor;
     }
 
     @Override
     public void setCriadoPor(String criadoPor) {
-        // TODO Auto-generated method stub
-
+        this.criadoPor = criadoPor;
     }
 
     @Override
     public String getAlteradoPor() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.alteradoPor;
     }
 
     @Override
     public void setAlteradoPor(String alteradoPor) {
-        // TODO Auto-generated method stub
-
+        this.alteradoPor = alteradoPor;
     }
 
     @Override
     public LocalDate getCriadoEm() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.criandoEm;
+    }
+
+    @Override
+    public void setCriadoEm(LocalDate date) {
+        this.criandoEm = date;
+    }
+
+    @Override
+    public void setAlteradoEm(LocalDate date) {
+        this.alteradoEm = date;
     }
 
     @Override
     public LocalDate getAlteradoEm() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.alteradoEm;
     }
 
 }

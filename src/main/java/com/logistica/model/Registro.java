@@ -17,5 +17,9 @@ public interface Registro {
 
     public LocalDate getCriadoEm();
 
+    public void setCriadoEm(LocalDate date);
+
+    public void setAlteradoEm(LocalDate date);
+
     public LocalDate getAlteradoEm();
 }

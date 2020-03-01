@@ -2,12 +2,15 @@ package com.logistica.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Base
@@ -22,14 +25,22 @@ public class Base implements Serializable, Registro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBase;
+    @NotBlank
+    private String nomeBase;
     private Integer codBase;
+    @NotBlank
     private String cidade;
+    private String UF;
+    private LocalDate alteradoEm;
+    private String alteradoPor;
+    private LocalDate criandoEm;
+    private String criadoPor;
 
     public Integer getIdBase() {
         return idBase;
     }
 
-    public void setIdBase(Integer idBase) {
+    public void setIdBase(final Integer idBase) {
         this.idBase = idBase;
     }
 
@@ -37,7 +48,7 @@ public class Base implements Serializable, Registro {
         return codBase;
     }
 
-    public void setCodBase(Integer codBase) {
+    public void setCodBase(final Integer codBase) {
         this.codBase = codBase;
     }
 
@@ -45,44 +56,69 @@ public class Base implements Serializable, Registro {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public void setCidade(final String cidade) {
         this.cidade = cidade;
     }
+    
+    
+    public String getNomeBase() {
+        return nomeBase;
+    }
 
+    public void setNomeBase(String nomeBase) {
+        this.nomeBase = nomeBase;
+    }
+    public List<EstadoSigla> carregarAtributos() {
+        return Arrays.asList(EstadoSigla.values());
+     }
+    
     @Override
     public String getCriadoPor() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.criadoPor;
     }
 
     @Override
     public void setCriadoPor(String criadoPor) {
-        // TODO Auto-generated method stub
-
+        this.criadoPor = criadoPor;
     }
 
     @Override
     public String getAlteradoPor() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.alteradoPor;
     }
 
     @Override
     public void setAlteradoPor(String alteradoPor) {
-        // TODO Auto-generated method stub
-
+        this.alteradoPor = alteradoPor;
     }
 
     @Override
     public LocalDate getCriadoEm() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.criandoEm;
+    }
+
+    @Override
+    public void setCriadoEm(LocalDate date) {
+        this.criandoEm = date;
+    }
+
+    @Override
+    public void setAlteradoEm(LocalDate date) {
+        this.alteradoEm = date;
     }
 
     @Override
     public LocalDate getAlteradoEm() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.alteradoEm;
     }
+
+    public String getUF() {
+        return UF;
+    }
+
+    public void setUF(String uF) {
+        UF = uF;
+    }
+
 
 }
