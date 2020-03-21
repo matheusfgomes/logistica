@@ -2,7 +2,10 @@ package com.logistica.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
+
+import javax.validation.Valid;
 
 import com.logistica.model.Motorista;
 import com.logistica.repository.MotoristaRepository;
@@ -26,4 +29,9 @@ public class MotoristaService {
     public List<Motorista> list() {
         return motoristaRepository.findAll();
     }
+
+	public Optional<Motorista> save(@Valid Motorista motorista) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

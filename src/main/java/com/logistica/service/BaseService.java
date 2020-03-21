@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.logistica.model.Base;
 import com.logistica.model.EstadoSigla;
 import com.logistica.repository.BaseRepository;
@@ -40,8 +42,35 @@ public class BaseService {
 		return base;
 	}
 
+	public Optional<Base> findByIdBase(Long id) {
+
+		Optional<Base> opBase = baseRepository.findById(id);
+
+		return opBase;
+	}
+
 	public Optional<Base> findByName(Base base) {
 		return baseRepository.findByName(base.getNomeBase());
+	}
+
+	public void delete(Optional<Base> b) {
+
+		baseRepository.deleteById(b.get().getIdBase());
+
+	}
+
+	public Optional<Base> update(@Valid Base base) {
+
+		Optional<Base> opBase = findByIdBase(base.getIdBase());
+
+		if (opBase.isPresent()) {
+
+			baseRepository.save(base);
+			base.setBase(opBase.get().getBase());
+
+		}
+
+		return opBase;
 	}
 
 }

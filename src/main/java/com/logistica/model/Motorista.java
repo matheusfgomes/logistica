@@ -3,12 +3,14 @@ package com.logistica.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * Motorista
@@ -22,11 +24,16 @@ public class Motorista implements Serializable, Registro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Base base;
+    @NotBlank
     private String nome;
-    private Integer cpf;
+    @NotBlank
+    private String cpf;
+    @NotBlank
     private String categoriaCnh;
+    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataNascimento;
-    private Integer celular;
+    @NotBlank
+    private String celular;
     private String vinculoMotorista;
     private String senhaExpirada;
     private StatusMotorista statusMotorista;
@@ -59,11 +66,11 @@ public class Motorista implements Serializable, Registro {
         this.nome = nome;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -83,11 +90,11 @@ public class Motorista implements Serializable, Registro {
         this.dataNascimento = dataNascimento;
     }
 
-    public Integer getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(Integer celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

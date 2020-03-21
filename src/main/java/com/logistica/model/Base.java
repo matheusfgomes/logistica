@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * Base
  * 
@@ -19,106 +22,151 @@ import javax.validation.constraints.NotBlank;
  */
 @Entity
 @Table(name = "base")
+@JsonInclude(Include.NON_NULL)
 public class Base implements Serializable, Registro {
 
-    private static final long serialVersionUID = 54581584231L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idBase;
-    @NotBlank
-    private String nomeBase;
-    private Integer codBase;
-    @NotBlank
-    private String cidade;
-    private String UF;
-    private LocalDate alteradoEm;
-    private String alteradoPor;
-    private LocalDate criandoEm;
-    private String criadoPor;
+	private static final long serialVersionUID = 54581584231L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idBase;
+	@NotBlank
+	private String nomeBase;
+	private Long codBase;
+	@NotBlank
+	private String cidade;
+	@NotBlank
+	private String UF;
+	@NotBlank
+	private String longitude;
+	@NotBlank
+	private String latitude;
+	private String elevacao;
+	private LocalDate alteradoEm;
+	private String alteradoPor;
+	private LocalDate criandoEm;
+	private String criadoPor;
+	private Base base;
 
-    public Integer getIdBase() {
-        return idBase;
-    }
+	public Long getIdBase() {
+		return idBase;
+	}
 
-    public void setIdBase(final Integer idBase) {
-        this.idBase = idBase;
-    }
+	public void setIdBase(final Long idBase) {
+		this.idBase = idBase;
+	}
 
-    public Integer getCodBase() {
-        return codBase;
-    }
+	public Long getCodBase() {
+		return codBase;
+	}
 
-    public void setCodBase(final Integer codBase) {
-        this.codBase = codBase;
-    }
+	public void setCodBase(final Long codBase) {
+		this.codBase = codBase;
+	}
 
-    public String getCidade() {
-        return cidade;
-    }
+	public String getCidade() {
+		return cidade;
+	}
 
-    public void setCidade(final String cidade) {
-        this.cidade = cidade;
-    }
-    
-    
-    public String getNomeBase() {
-        return nomeBase;
-    }
+	public void setCidade(final String cidade) {
+		this.cidade = cidade;
+	}
 
-    public void setNomeBase(String nomeBase) {
-        this.nomeBase = nomeBase;
-    }
-    public List<EstadoSigla> carregarAtributos() {
-        return Arrays.asList(EstadoSigla.values());
-     }
-    
-    @Override
-    public String getCriadoPor() {
-        return this.criadoPor;
-    }
+	public String getNomeBase() {
+		return nomeBase;
+	}
 
-    @Override
-    public void setCriadoPor(String criadoPor) {
-        this.criadoPor = criadoPor;
-    }
+	public void setNomeBase(String nomeBase) {
+		this.nomeBase = nomeBase;
+	}
 
-    @Override
-    public String getAlteradoPor() {
-        return this.alteradoPor;
-    }
+	public List<EstadoSigla> carregarAtributos() {
+		return Arrays.asList(EstadoSigla.values());
+	}
 
-    @Override
-    public void setAlteradoPor(String alteradoPor) {
-        this.alteradoPor = alteradoPor;
-    }
+	public String getUF() {
+		return UF;
+	}
 
-    @Override
-    public LocalDate getCriadoEm() {
-        return this.criandoEm;
-    }
+	public void setUF(String uF) {
+		UF = uF;
+	}
 
-    @Override
-    public void setCriadoEm(LocalDate date) {
-        this.criandoEm = date;
-    }
+	public String getLongitude() {
+		return longitude;
+	}
 
-    @Override
-    public void setAlteradoEm(LocalDate date) {
-        this.alteradoEm = date;
-    }
+	public void setLongitude(String altitude) {
+		this.longitude = altitude;
+	}
 
-    @Override
-    public LocalDate getAlteradoEm() {
-        return this.alteradoEm;
-    }
+	public String getLatitude() {
+		return latitude;
+	}
 
-    public String getUF() {
-        return UF;
-    }
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
 
-    public void setUF(String uF) {
-        UF = uF;
-    }
+	public String getElevacao() {
+		return elevacao;
+	}
 
+	public void setElevacao(String elevacao) {
+		this.elevacao = elevacao;
+	}
+
+	@Override
+	public String getCriadoPor() {
+		return this.criadoPor;
+	}
+
+	@Override
+	public void setCriadoPor(String criadoPor) {
+		this.criadoPor = criadoPor;
+	}
+
+	@Override
+	public String getAlteradoPor() {
+		return this.alteradoPor;
+	}
+
+	@Override
+	public void setAlteradoPor(String alteradoPor) {
+		this.alteradoPor = alteradoPor;
+	}
+
+	@Override
+	public LocalDate getCriadoEm() {
+		return this.criandoEm;
+	}
+
+	@Override
+	public void setCriadoEm(LocalDate date) {
+		this.criandoEm = date;
+	}
+
+	@Override
+	public void setAlteradoEm(LocalDate date) {
+		this.alteradoEm = date;
+	}
+
+	@Override
+	public LocalDate getAlteradoEm() {
+		return this.alteradoEm;
+	}
+
+	public Base getBase() {
+		return base;
+	}
+
+	public void setBase(Base base) {
+		this.base = base;
+	}
+
+	@Override
+	public String toString() {
+		return "Base [idBase=" + idBase + ", nomeBase=" + nomeBase + ", codBase=" + codBase + ", cidade=" + cidade
+				+ ", UF=" + UF + ", criandoEm=" + criandoEm + "]";
+	}
 
 }
