@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public class BaseController {
 		return ("Hello World");
 	}
 
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<Base>> list() {
 		LOG.debug("list()");
 
@@ -54,25 +55,36 @@ public class BaseController {
 	@DeleteMapping(path = "/delete/{idBase}")
 	public ResponseEntity<Responser<Base>> delete(@PathVariable Long idBase) {
 		Optional<Base> opBase = null;
+		Responser<Base> response = new Responser<>();
+
 		try {
 			opBase = baseService.findByIdBase(idBase);
 			LOG.debug("deleting({" + opBase.get().toString() + "})");
+			
 
 		} catch (Exception e) {
-			System.err.println("Não foi possivel achar esse registro em nossa base de Dados: " + e);
-			LOG.info("Registro não Encontrado!", opBase.get());
-			return ResponseEntity.notFound().build();
+			response.getErrors().add("Não foi possivel achar esse registro em nossa base de Dados");
+			StringBuilder errosBuilder = new StringBuilder();
+			response.getErrors().stream().forEach(s -> {
+				errosBuilder.append("Erros: ").append(s).append(" ");
+			});
+			LOG.info(errosBuilder.toString());
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
 		}
 
 		try {
 			baseService.delete(opBase);
 			LOG.info("Regristro excluido!", opBase.get().toString());
-			return ResponseEntity.noContent().build();
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
 		} catch (Exception e) {
 
-			System.err.println("Erro ao excluir  : " + e);
-			LOG.info("Registro invalido!", opBase.get());
-			return ResponseEntity.notFound().build();
+			response.getErrors().add("Registro invalido");
+			StringBuilder errosBuilder = new StringBuilder();
+			response.getErrors().stream().forEach(s -> {
+				errosBuilder.append("Erros: ").append(s).append(" ");
+			});
+			LOG.info(errosBuilder.toString());
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
 		}
 	}
 
@@ -102,9 +114,8 @@ public class BaseController {
 				errosBuilder.append("Erros: ").append(s).append(" ");
 			});
 			LOG.info(errosBuilder.toString());
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
 		}
-
-		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping(path = "/update")
@@ -114,8 +125,13 @@ public class BaseController {
 
 		Optional<Base> opBase = baseService.update(base);
 		if (!opBase.isPresent()) {
-			LOG.info("Não existe essa base: ");
-			return ResponseEntity.noContent().build();
+			response.getErrors().add("Não existe essa base:");
+			StringBuilder errosBuilder = new StringBuilder();
+			response.getErrors().stream().forEach(s -> {
+				errosBuilder.append("Erros: ").append(s).append(" ");
+			});
+			LOG.info(errosBuilder.toString());
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
 		}
 		response.setData(opBase.get());
 		LOG.info("A Base foi alterada com sucesso: " + opBase.get().toString());

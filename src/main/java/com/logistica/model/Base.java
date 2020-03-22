@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name = "base")
 @JsonInclude(Include.NON_NULL)
 public class Base implements Serializable, Registro {
-
+  
 	private static final long serialVersionUID = 54581584231L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +42,12 @@ public class Base implements Serializable, Registro {
 	@NotBlank
 	private String latitude;
 	private String elevacao;
+	@OneToMany
+	private List<Motorista>motoristas;
 	private LocalDate alteradoEm;
 	private String alteradoPor;
 	private LocalDate criandoEm;
 	private String criadoPor;
-	private Base base;
 
 	public Long getIdBase() {
 		return idBase;
@@ -155,13 +157,7 @@ public class Base implements Serializable, Registro {
 		return this.alteradoEm;
 	}
 
-	public Base getBase() {
-		return base;
-	}
 
-	public void setBase(Base base) {
-		this.base = base;
-	}
 
 	@Override
 	public String toString() {

@@ -7,6 +7,7 @@ public class Responser<T> {
 
     private T data;
     private List<String> errors;
+    private String mensagens;
 
     public T getData() {
         return data;
@@ -27,9 +28,21 @@ public class Responser<T> {
         this.errors = errors;
     }
 
-    @Override
+    
+    public String getMensagens() {
+		return mensagens;
+	}
+
+	public void setMensagens(String mensagens) {
+		this.mensagens = mensagens;
+	}
+
+	@Override
     public String toString() {
         return "Response [data=" + data + ", errors=" + errors + "]";
+    }
+	public String toStringMessage() {
+        return "Response [data=" + data + ", mensage=" + mensagens + "]";
     }
 
 }

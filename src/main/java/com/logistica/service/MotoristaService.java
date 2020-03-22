@@ -1,5 +1,6 @@
 package com.logistica.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,11 +8,11 @@ import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
-import com.logistica.model.Motorista;
-import com.logistica.repository.MotoristaRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.logistica.model.Motorista;
+import com.logistica.repository.MotoristaRepository;
 
 /**
  * MotoristaService
@@ -19,19 +20,45 @@ import org.springframework.stereotype.Service;
 @Service
 public class MotoristaService {
 
-    Logger LOGGER = Logger.getLogger(MotoristaService.class.getName());
+	Logger LOGGER = Logger.getLogger(MotoristaService.class.getName());
 
-    @Autowired
-    private MotoristaRepository motoristaRepository;
+	@Autowired
+	private MotoristaRepository motoristaRepository;
 
-    List<Motorista> motoristas = new ArrayList<Motorista>();
+	List<Motorista> motoristas = new ArrayList<Motorista>();
 
-    public List<Motorista> list() {
-        return motoristaRepository.findAll();
-    }
+	public List<Motorista> list() {
+		return motoristaRepository.findAll();
+	}
 
 	public Optional<Motorista> save(@Valid Motorista motorista) {
-		// TODO Auto-generated method stub
-		return null;
+
+		motorista.setCriadoEm(LocalDate.now());
+		motoristaRepository.save(motorista);
+		Optional<Motorista> opMotorista = motoristaRepository.findById(motorista.getId());
+
+		return opMotorista;
+	}
+
+	public Optional<Motorista> update(@Valid Motorista motorista) {
+		Optional<Motorista> opMotorista = motoristaRepository.findById(motorista.getId());
+
+		if (opMotorista.isPresent()) {
+
+			motoristaRepository.save(motorista);
+
+		}
+		return opMotorista;
+	}
+
+	public void delete(Optional<Motorista> opMotorista) {
+		motoristaRepository.deleteById(opMotorista.get().getId());
+
+	}
+
+	public Optional<Motorista> findByIdMotorista(Long idMotorista) {
+
+		Optional<Motorista> opMotorista = motoristaRepository.findById(idMotorista);
+		return opMotorista;
 	}
 }

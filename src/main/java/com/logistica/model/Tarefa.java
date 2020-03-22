@@ -13,6 +13,7 @@ public class Tarefa implements Serializable, Registro {
     
     private Integer idTarefa;
     private Viagem viagem;
+    private Rota rota;
     private String nomeRemetente;
     private String nomeDestinatario;
     private String cgcRemetente;
@@ -41,7 +42,15 @@ public class Tarefa implements Serializable, Registro {
         this.viagem = viagem;
     }
 
-    public String getNomeRemetente() {
+    public Rota getRota() {
+		return rota;
+	}
+
+	public void setRota(Rota rota) {
+		this.rota = rota;
+	}
+
+	public String getNomeRemetente() {
         return nomeRemetente;
     }
 
