@@ -4,45 +4,73 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * Tarefa
  */
+@Entity
+@Table(name = "tarefa")
+@JsonInclude(Include.NON_NULL)
 public class Tarefa implements Serializable, Registro {
 
-    private static final long serialVersionUID = 1L;
-    
-    private Integer idTarefa;
-    private Viagem viagem;
-    private Rota rota;
-    private String nomeRemetente;
-    private String nomeDestinatario;
-    private String cgcRemetente;
-    private String cgcDestinatario;
-    private List<Carga> cargas;
-    private Integer numDocumento;
-    private LocalDate previsaoEntrega;
-    private LocalDate alteradoEm;
-    private String alteradoPor;
-    private LocalDate criandoEm;
-    private String criadoPor;
+	private static final long serialVersionUID = 13131541L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@OneToOne()
+	@JoinColumn(name = "id")
+	private Destinatario destinatario;
+	@OneToOne()
+	@JoinColumn(name = "id")
+	private Remetente remetente;
+	@OneToOne()
+	@JoinColumn(name = "id")
+	private Rota rota;
+	@OneToMany()
+	private List<Carga> cargas;
+	@ManyToOne(targetEntity = Viagem.class)
+	private Viagem viagem;
+	@OneToOne()
+	@JoinColumn(name = "id")
+	private Motorista motorista;
+	private LocalDate previsaoEntrega;
 
-    public Integer getIdTarefa() {
-        return idTarefa;
-    }
+	private LocalDate alteradoEm;
+	private String alteradoPor;
+	private LocalDate criandoEm;
+	private String criadoPor;
 
-    public void setIdTarefa(final Integer idTarefa) {
-        this.idTarefa = idTarefa;
-    }
+	public Integer getIdTarefa() {
+		return id;
+	}
 
-    public Viagem getViagem() {
-        return viagem;
-    }
+	public void setIdTarefa(final Integer idTarefa) {
+		this.id = idTarefa;
+	}
 
-    public void setViagem(final Viagem viagem) {
-        this.viagem = viagem;
-    }
+	public Viagem getViagem() {
+		return viagem;
+	}
 
-    public Rota getRota() {
+	public void setViagem(final Viagem viagem) {
+		this.viagem = viagem;
+	}
+
+	public Rota getRota() {
 		return rota;
 	}
 
@@ -50,100 +78,84 @@ public class Tarefa implements Serializable, Registro {
 		this.rota = rota;
 	}
 
-	public String getNomeRemetente() {
-        return nomeRemetente;
-    }
+	public Destinatario getDestinatario() {
+		return destinatario;
+	}
 
-    public void setNomeRemetente(final String nomeRemetente) {
-        this.nomeRemetente = nomeRemetente;
-    }
+	public void setDestinatario(Destinatario destinatario) {
+		this.destinatario = destinatario;
+	}
 
-    public String getNomeDestinatario() {
-        return nomeDestinatario;
-    }
+	public Remetente getRemetente() {
+		return remetente;
+	}
 
-    public void setNomeDestinatario(final String nomeDestinatario) {
-        this.nomeDestinatario = nomeDestinatario;
-    }
+	public void setRemetente(Remetente remetente) {
+		this.remetente = remetente;
+	}
 
-    public String getCgcRemetente() {
-        return cgcRemetente;
-    }
+	public List<Carga> getCargas() {
+		return cargas;
+	}
 
-    public void setCgcRemetente(final String cgcRemetente) {
-        this.cgcRemetente = cgcRemetente;
-    }
+	public void setCargas(final List<Carga> cargas) {
+		this.cargas = cargas;
+	}
 
-    public String getCgcDestinatario() {
-        return cgcDestinatario;
-    }
+	public Motorista getMotorista() {
+		return motorista;
+	}
 
-    public void setCgcDestinatario(final String cgcDestinatario) {
-        this.cgcDestinatario = cgcDestinatario;
-    }
+	public void setMotorista(Motorista motorista) {
+		this.motorista = motorista;
+	}
 
-    public List<Carga> getCargas() {
-        return cargas;
-    }
+	public LocalDate getPrevisaoEntrega() {
+		return previsaoEntrega;
+	}
 
-    public void setCargas(final List<Carga> cargas) {
-        this.cargas = cargas;
-    }
+	public void setPrevisaoEntrega(final LocalDate previsaoEntrega) {
+		this.previsaoEntrega = previsaoEntrega;
+	}
 
-    public Integer getNumDocumento() {
-        return numDocumento;
-    }
+	@Override
+	public String getCriadoPor() {
+		return this.criadoPor;
+	}
 
-    public void setNumDocumento(final Integer numDocumento) {
-        this.numDocumento = numDocumento;
-    }
+	@Override
+	public void setCriadoPor(String criadoPor) {
+		this.criadoPor = criadoPor;
+	}
 
-    public LocalDate getPrevisaoEntrega() {
-        return previsaoEntrega;
-    }
+	@Override
+	public String getAlteradoPor() {
+		return this.alteradoPor;
+	}
 
-    public void setPrevisaoEntrega(final LocalDate previsaoEntrega) {
-        this.previsaoEntrega = previsaoEntrega;
-    }
+	@Override
+	public void setAlteradoPor(String alteradoPor) {
+		this.alteradoPor = alteradoPor;
+	}
 
-    @Override
-    public String getCriadoPor() {
-        return this.criadoPor;
-    }
+	@Override
+	public LocalDate getCriadoEm() {
+		return this.criandoEm;
+	}
 
-    @Override
-    public void setCriadoPor(String criadoPor) {
-        this.criadoPor = criadoPor;
-    }
+	@Override
+	public void setCriadoEm(LocalDate date) {
+		this.criandoEm = date;
+	}
 
-    @Override
-    public String getAlteradoPor() {
-        return this.alteradoPor;
-    }
+	@Override
+	public void setAlteradoEm(LocalDate date) {
+		this.alteradoEm = date;
+	}
 
-    @Override
-    public void setAlteradoPor(String alteradoPor) {
-        this.alteradoPor = alteradoPor;
-    }
-
-    @Override
-    public LocalDate getCriadoEm() {
-        return this.criandoEm;
-    }
-
-    @Override
-    public void setCriadoEm(LocalDate date) {
-        this.criandoEm = date;
-    }
-
-    @Override
-    public void setAlteradoEm(LocalDate date) {
-        this.alteradoEm = date;
-    }
-
-    @Override
-    public LocalDate getAlteradoEm() {
-        return this.alteradoEm;
-    }
+	@Override
+	public LocalDate getAlteradoEm() {
+		return this.alteradoEm;
+	}
 
 }

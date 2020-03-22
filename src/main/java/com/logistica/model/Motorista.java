@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -41,6 +43,8 @@ public class Motorista implements Serializable, Registro {
 	@ManyToOne()
 	@JoinColumn(name = "cod_base")
 	private Base base;
+	@OneToOne ()
+	private Tarefa tarefa;
 	private String vinculoMotorista;
 	private String senhaExpirada;
 	private StatusMotorista statusMotorista;
@@ -130,6 +134,14 @@ public class Motorista implements Serializable, Registro {
 	}
 
 	
+
+	public Tarefa getTarefa() {
+		return tarefa;
+	}
+
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
 
 	@Override
 	public String getCriadoPor() {

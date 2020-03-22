@@ -3,11 +3,14 @@ package com.logistica.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,12 +23,21 @@ public class Rota implements Serializable, Registro {
 	private static final long serialVersionUID = 54581584231L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idRota;
+	private Long id;
+	@NotBlank
 	private String enderecoEntrega;
+	@NotBlank
+	private String bairro;
+	@NotBlank
 	private String numero;
+	@NotBlank
 	private Integer cep;
+	@NotBlank
 	private String latitude;
+	@NotBlank
 	private String longitude;
+	@OneToOne()
+	private Tarefa tarefa;
 
 	@Override
 	public String getCriadoPor() {

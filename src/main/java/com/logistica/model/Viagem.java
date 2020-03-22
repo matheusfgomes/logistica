@@ -4,16 +4,32 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * Viagem
  */
+@Entity
+@Table(name = "viagem")
+@JsonInclude(Include.NON_NULL)
 public class Viagem implements Serializable, Registro {
 
-    private static final long serialVersionUID = 1L;
-    private Integer idViagem;
-    private Base base;
-    private Motorista motorista;
+	private static final long serialVersionUID = 13112314131541L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private StatusViagem statusViagem;
+	@OneToMany
     private List<Tarefa> tarefas;
     private LocalDate alteradoEm;
     private String alteradoPor;
@@ -21,28 +37,13 @@ public class Viagem implements Serializable, Registro {
     private String criadoPor;
 
     public Integer getIdViagem() {
-        return idViagem;
+        return id;
     }
 
     public void setIdViagem(Integer idViagem) {
-        this.idViagem = idViagem;
+        this.id = idViagem;
     }
 
-    public Base getBase() {
-        return base;
-    }
-
-    public void setBase(Base base) {
-        this.base = base;
-    }
-
-    public Motorista getMotorista() {
-        return motorista;
-    }
-
-    public void setMotorista(Motorista motorista) {
-        this.motorista = motorista;
-    }
 
     public StatusViagem getStatusViagem() {
         return statusViagem;
