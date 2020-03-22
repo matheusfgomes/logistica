@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,6 +43,7 @@ public class Motorista implements Serializable, Registro {
 	@JoinColumn(name = "cod_base")
 	private Base base;
 	@OneToOne ()
+	@JoinColumn(name = "tarefa_id")
 	private Tarefa tarefa;
 	private String vinculoMotorista;
 	private String senhaExpirada;

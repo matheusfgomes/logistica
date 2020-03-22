@@ -105,7 +105,7 @@ public class BaseController {
 		if (!opBase.isPresent()) {
 			baseService.save(base);
 			response.setData(base);
-			LOG.info("A conferência foi salva com sucesso: " + base.toString());
+			LOG.info("A base foi salva com sucesso: " + base.toString());
 			return ResponseEntity.ok(response);
 		} else {
 			response.getErrors().add("Já existe esse Registro em nossa base de dadaos.");

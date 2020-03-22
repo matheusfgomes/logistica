@@ -2,20 +2,17 @@ package com.logistica.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -32,25 +29,24 @@ public class Tarefa implements Serializable, Registro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@OneToOne()
-	@JoinColumn(name = "id")
 	private Destinatario destinatario;
 	@OneToOne()
-	@JoinColumn(name = "id")
 	private Remetente remetente;
 	@OneToOne()
-	@JoinColumn(name = "id")
 	private Rota rota;
-	@OneToMany()
-	private List<Carga> cargas;
-	@ManyToOne(targetEntity = Viagem.class)
+	@OneToOne()
+	private Carga carga;
+	@ManyToOne()
+	@JoinColumn(name = "viagem_id")
 	private Viagem viagem;
 	@OneToOne()
-	@JoinColumn(name = "id")
 	private Motorista motorista;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate previsaoEntrega;
 
 	private LocalDate alteradoEm;
 	private String alteradoPor;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate criandoEm;
 	private String criadoPor;
 
@@ -94,13 +90,7 @@ public class Tarefa implements Serializable, Registro {
 		this.remetente = remetente;
 	}
 
-	public List<Carga> getCargas() {
-		return cargas;
-	}
-
-	public void setCargas(final List<Carga> cargas) {
-		this.cargas = cargas;
-	}
+	
 
 	public Motorista getMotorista() {
 		return motorista;

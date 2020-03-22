@@ -3,11 +3,11 @@ package com.logistica.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -37,6 +37,7 @@ public class Rota implements Serializable, Registro {
 	@NotBlank
 	private String longitude;
 	@OneToOne()
+	@JoinColumn(name = "tarefa_id")
 	private Tarefa tarefa;
 
 	@Override

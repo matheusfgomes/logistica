@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,10 +20,11 @@ public class Destinatario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long cpfCnpj;
+	private String cpfCnpj;
 	private String nomeDestinatario;
 	private String cgcDestinatario;
 	@OneToOne()
+	@JoinColumn(name = "tarefa_id")
 	private Tarefa tarefa;
 
 	public Long getIdDestinatario() {
@@ -33,11 +35,11 @@ public class Destinatario {
 		this.id = idDestinatario;
 	}
 
-	public Long getCpfCnpj() {
+	public String getCpfCnpj() {
 		return cpfCnpj;
 	}
 
-	public void setCpfCnpj(Long cpfCnpj) {
+	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
 	}
 

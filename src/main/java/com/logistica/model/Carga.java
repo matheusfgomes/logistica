@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -30,8 +30,8 @@ public class Carga implements Serializable, Registro {
 	private String notaFiscal;
 	private Integer volumeCarga;
 	private Double peso;
-	@ManyToOne
-	@JoinColumn(name= "id_tarefa")
+	@OneToOne
+	@JoinColumn(name = "tarefa_id")
 	private Tarefa tarefa;
 	private LocalDate alteradoEm;
 	private String alteradoPor;
