@@ -67,12 +67,9 @@ public class BaseController {
 	public ResponseEntity<Responser<Base>> delete(@PathVariable Long idBase) {
 		Optional<Base> opBase = null;
 		Responser<Base> response = new Responser<>();
-
 		try {
 			opBase = baseService.findByIdBase(idBase);
 			LOG.debug("deleting({" + opBase.get().toString() + "})");
-			
-
 		} catch (Exception e) {
 			response.getErrors().add("Não foi possivel achar esse registro em nossa base de Dados");
 			StringBuilder errosBuilder = new StringBuilder();

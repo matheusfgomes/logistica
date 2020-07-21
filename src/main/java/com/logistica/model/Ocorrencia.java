@@ -1,11 +1,16 @@
 package com.logistica.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Ocorrencia
  */
+@Getter
+@Setter
 public class Ocorrencia implements Serializable, Registro {
 
     private static final long serialVersionUID = 1L;
@@ -19,45 +24,7 @@ public class Ocorrencia implements Serializable, Registro {
     private LocalDate criandoEm;
     private String criadoPor;
 
-    public Integer getIdOcorrencia() {
-        return idOcorrencia;
-    }
 
-    public void setIdOcorrencia(Integer idOcorrencia) {
-        this.idOcorrencia = idOcorrencia;
-    }
-
-    public Integer getCodOcorrencia() {
-        return codOcorrencia;
-    }
-
-    public void setCodOcorrencia(Integer codOcorrencia) {
-        this.codOcorrencia = codOcorrencia;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public TipoOcorrencia getTipoOcorrencia() {
-        return tipoOcorrencia;
-    }
-
-    public void setTipoOcorrencia(TipoOcorrencia tipoOcorrencia) {
-        this.tipoOcorrencia = tipoOcorrencia;
-    }
-
-    public StatusOcorrencia getStatusOcorrencia() {
-        return statusOcorrencia;
-    }
-
-    public void setStatusOcorrencia(StatusOcorrencia statusOcorrencia) {
-        this.statusOcorrencia = statusOcorrencia;
-    }
     @Override
     public String getCriadoPor() {
         return this.criadoPor;

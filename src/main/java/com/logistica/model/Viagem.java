@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Viagem
@@ -20,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name = "viagem")
 @JsonInclude(Include.NON_NULL)
+@Getter
+@Setter
 public class Viagem implements Serializable, Registro {
 
 	private static final long serialVersionUID = 13112314131541L;
@@ -27,37 +31,16 @@ public class Viagem implements Serializable, Registro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private StatusViagem statusViagem;
-	@OneToMany
+	@OneToMany(mappedBy = "viagem")
     private List<Tarefa> tarefas;
+	private Motorista motorista;
+	private Base baseOridgem;
     private LocalDate alteradoEm;
     private String alteradoPor;
     private LocalDate criandoEm;
     private String criadoPor;
 
-    public Integer getIdViagem() {
-        return id;
-    }
 
-    public void setIdViagem(Integer idViagem) {
-        this.id = idViagem;
-    }
-
-
-    public StatusViagem getStatusViagem() {
-        return statusViagem;
-    }
-
-    public void setStatusViagem(StatusViagem statusViagem) {
-        this.statusViagem = statusViagem;
-    }
-
-    public List<Tarefa> getTarefas() {
-        return tarefas;
-    }
-
-    public void setTarefas(List<Tarefa> tarefas) {
-        this.tarefas = tarefas;
-    }
     @Override
     public String getCriadoPor() {
         return this.criadoPor;

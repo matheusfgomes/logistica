@@ -1,11 +1,16 @@
 package com.logistica.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * TarefaOcorrencia
  */
+@Getter
+@Setter
 public class TarefaOcorrencia implements Serializable, Registro {
 
     private static final long serialVersionUID = 1L;
@@ -17,29 +22,7 @@ public class TarefaOcorrencia implements Serializable, Registro {
     private LocalDate criandoEm;
     private String criadoPor;
 
-    public Tarefa getTarefa() {
-        return tarefa;
-    }
 
-    public void setTarefa(Tarefa tarefa) {
-        this.tarefa = tarefa;
-    }
-
-    public Ocorrencia getOcorrencia() {
-        return ocorrencia;
-    }
-
-    public void setOcorrencia(Ocorrencia ocorrencia) {
-        this.ocorrencia = ocorrencia;
-    }
-
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
     @Override
     public String getCriadoPor() {
         return this.criadoPor;

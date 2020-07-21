@@ -15,12 +15,16 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Base
  * 
  * @see
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "base")
 @JsonInclude(Include.NON_NULL)
@@ -42,80 +46,16 @@ public class Base implements Serializable, Registro {
 	@NotBlank
 	private String latitude;
 	private String elevacao;
-	@OneToMany
+	@OneToMany(mappedBy = "base")
 	private List<Motorista>motoristas;
+	@OneToMany(mappedBy = "base")
+	private List<Veiculo> veiculos;
 	private LocalDate alteradoEm;
 	private String alteradoPor;
 	private LocalDate criandoEm;
 	private String criadoPor;
 
-	public Long getIdBase() {
-		return idBase;
-	}
 
-	public void setIdBase(final Long idBase) {
-		this.idBase = idBase;
-	}
-
-	public Long getCodBase() {
-		return codBase;
-	}
-
-	public void setCodBase(final Long codBase) {
-		this.codBase = codBase;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(final String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getNomeBase() {
-		return nomeBase;
-	}
-
-	public void setNomeBase(String nomeBase) {
-		this.nomeBase = nomeBase;
-	}
-
-	public List<EstadoSigla> carregarAtributos() {
-		return Arrays.asList(EstadoSigla.values());
-	}
-
-	public String getUF() {
-		return UF;
-	}
-
-	public void setUF(String uF) {
-		UF = uF;
-	}
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String altitude) {
-		this.longitude = altitude;
-	}
-
-	public String getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getElevacao() {
-		return elevacao;
-	}
-
-	public void setElevacao(String elevacao) {
-		this.elevacao = elevacao;
-	}
 
 	@Override
 	public String getCriadoPor() {

@@ -2,6 +2,7 @@ package com.logistica.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -16,10 +18,14 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Motorista
  */
+@Getter
+@Setter
 @JsonInclude(Include.NON_NULL)
 @Entity
 @Table(name = "motorista")
@@ -40,11 +46,10 @@ public class Motorista implements Serializable, Registro {
 	@NotBlank
 	private String celular;
 	@ManyToOne()
-	@JoinColumn(name = "cod_base")
+	@JoinColumn(name = "id_base")
 	private Base base;
-	@OneToOne ()
-	@JoinColumn(name = "tarefa_id")
-	private Tarefa tarefa;
+	@OneToMany(mappedBy = "motorista")
+	private List<Tarefa> tarefas;
 	private String vinculoMotorista;
 	private String senhaExpirada;
 	private StatusMotorista statusMotorista;
@@ -53,95 +58,6 @@ public class Motorista implements Serializable, Registro {
 	private LocalDate criandoEm;
 	private String criadoPor;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Base getBase() {
-		return base;
-	}
-
-	public void setBase(Base base) {
-		this.base = base;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getCategoriaCnh() {
-		return categoriaCnh;
-	}
-
-	public void setCategoriaCnh(String categoriaCnh) {
-		this.categoriaCnh = categoriaCnh;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getCelular() {
-		return celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	public String getVinculoMotorista() {
-		return vinculoMotorista;
-	}
-
-	public void setVinculoMotorista(String vinculoMotorista) {
-		this.vinculoMotorista = vinculoMotorista;
-	}
-
-	public String getSenhaExpirada() {
-		return senhaExpirada;
-	}
-
-	public void setSenhaExpirada(String senhaExpirada) {
-		this.senhaExpirada = senhaExpirada;
-	}
-
-	public StatusMotorista getStatusMotorista() {
-		return statusMotorista;
-	}
-
-	public void setStatusMotorista(StatusMotorista statusMotorista) {
-		this.statusMotorista = statusMotorista;
-	}
-
-	
-
-	public Tarefa getTarefa() {
-		return tarefa;
-	}
-
-	public void setTarefa(Tarefa tarefa) {
-		this.tarefa = tarefa;
-	}
 
 	@Override
 	public String getCriadoPor() {
