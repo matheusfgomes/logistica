@@ -2,6 +2,7 @@ package com.logistica.config;
 
 import com.logistica.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,34 +39,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 
         String username = null;
-
         String jwtToken = null;
 
 
 // JWT Token está no form "Bearer token". Remova a palavra Bearer e pegue somente o Token
-
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-
             jwtToken = requestTokenHeader.substring(7);
-
             try {
-
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-
             } catch (IllegalArgumentException e) {
-
-                System.out.println("Unable to get JWT Token");
-
+                System.err.println("Unable to get JWT Token");
+                throw new IllegalArgumentException(e.getMessage());
             } catch (ExpiredJwtException e) {
-
-                System.out.println("JWT Token has expired");
-
+                System.err.println("JWT Token has expired");
+                throw new ExpiredJwtException(null, null, e.getMessage());
             }
-
         } else {
-
             logger.warn("JWT Token does not begin with Bearer String");
-
         }
 
 
