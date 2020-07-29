@@ -1,10 +1,12 @@
 package com.logistica.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -19,11 +21,10 @@ public class Role implements GrantedAuthority {
 	@Id
 	private String nomeRole;
 	@ManyToMany
-	private List<Usuario> usuarios;
+	private List<Usuario> usuarios = new ArrayList<>();
 
 	@Override
 	public String getAuthority() {
-		// TODO Auto-generated method stub
 		return this.nomeRole;
 	}
 

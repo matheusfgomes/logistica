@@ -1,5 +1,6 @@
 package com.logistica.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,12 +29,12 @@ public class Usuario implements UserDetails {
 			name = "usuario_id",referencedColumnName = "login"),
 			inverseJoinColumns = @JoinColumn(
 			name  =  "role_id",referencedColumnName = "nomeRole"))
-	private List<Role>roles;
+	private List<Role>roles = new ArrayList<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return roles;
 	}
 
 	@Override
