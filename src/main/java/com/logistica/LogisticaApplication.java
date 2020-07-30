@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootApplication
 @Configuration
 public class LogisticaApplication   {
-
+//http://localhost:8080/swagger-ui.html
 	public static void main(String[] args) {
 		SpringApplication.run(LogisticaApplication.class, args);
 		System.out.println(new BCryptPasswordEncoder().encode("123"));

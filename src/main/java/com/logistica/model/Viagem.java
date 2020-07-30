@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Viagem
@@ -26,15 +27,15 @@ import lombok.Setter;
 @Setter
 public class Viagem implements Serializable, Registro {
 
-	private static final long serialVersionUID = 13112314131541L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private static final long serialVersionUID = 13112314131541L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private StatusViagem statusViagem;
-	@OneToMany(mappedBy = "viagem")
+    @OneToMany(mappedBy = "viagem")
     private List<Tarefa> tarefas;
-	private Motorista motorista;
-	private Base baseOridgem;
+    private Motorista motorista;
+    private Base baseOridgem;
     private LocalDate alteradoEm;
     private String alteradoPor;
     private LocalDate criandoEm;
@@ -81,4 +82,9 @@ public class Viagem implements Serializable, Registro {
         return this.alteradoEm;
     }
 
+    @Override
+    public Usuario getUsuario() {
+        Usuario usua = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usua;
+    }
 }

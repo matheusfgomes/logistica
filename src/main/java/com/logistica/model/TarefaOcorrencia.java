@@ -2,6 +2,7 @@ package com.logistica.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -62,5 +63,9 @@ public class TarefaOcorrencia implements Serializable, Registro {
     public LocalDate getAlteradoEm() {
         return this.alteradoEm;
     }
-
+    @Override
+    public Usuario getUsuario() {
+        Usuario usua = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usua;
+    }
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -77,6 +79,11 @@ public class Rota implements Serializable, Registro {
     public LocalDate getAlteradoEm() {
         // TODO Auto-generated method stub
         return null;
+    }
+    @Override
+    public Usuario getUsuario() {
+        Usuario usua = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usua;
     }
 
 }

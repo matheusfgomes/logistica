@@ -22,4 +22,6 @@ public interface Registro {
     public void setAlteradoEm(LocalDate date);
 
     public LocalDate getAlteradoEm();
+
+    public Usuario getUsuario();
 }

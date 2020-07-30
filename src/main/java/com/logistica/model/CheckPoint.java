@@ -1,5 +1,7 @@
 package com.logistica.model;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -50,6 +52,7 @@ public class CheckPoint implements Serializable, Registro {
     public void setTipoOCOrrencia(TipoOcorrencia tipoOCOrrencia) {
         this.tipoOCOrrencia = tipoOCOrrencia;
     }
+
     @Override
     public String getCriadoPor() {
         return this.criadoPor;
@@ -88,6 +91,12 @@ public class CheckPoint implements Serializable, Registro {
     @Override
     public LocalDate getAlteradoEm() {
         return this.alteradoEm;
+    }
+
+    @Override
+    public Usuario getUsuario() {
+        Usuario usua = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usua;
     }
 
 }

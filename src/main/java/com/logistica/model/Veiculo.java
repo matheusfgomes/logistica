@@ -1,7 +1,10 @@
 package com.logistica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,14 +21,20 @@ public class Veiculo implements Serializable, Registro {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idVeiculo;
+    private Long idVeiculo;
     private String cidade;
+    @Column(unique = true)
     private String placa;
-    private UF uf;
+    private String uf;
+    @Enumerated(EnumType.STRING)
+    private CorVeiculo corVeiculo;
+    @Enumerated(EnumType.STRING)
     private TipoVeiculo tipoVeiculo;
-    private StatusVeiculo statusVeiculo;
+    @Enumerated(EnumType.STRING)
+    private StatusVeiculo statusVeiculo = StatusVeiculo.DISPONIVEL;
     @ManyToOne
     @JoinColumn(name = "base_id")
+    @JsonBackReference
     private Base base;
     private LocalDate alteradoEm;
     private String alteradoPor;
@@ -71,6 +80,14 @@ public class Veiculo implements Serializable, Registro {
     @Override
     public LocalDate getAlteradoEm() {
         return this.alteradoEm;
+    }
+
+    @JsonIgnore
+    @Override
+    public Usuario getUsuario() {
+        Usuario usua = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usua;
+
     }
 
 }

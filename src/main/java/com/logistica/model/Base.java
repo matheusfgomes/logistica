@@ -5,18 +5,16 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Base
@@ -48,7 +46,8 @@ public class Base implements Serializable, Registro {
 	private String elevacao;
 	@OneToMany(mappedBy = "base")
 	private List<Motorista>motoristas;
-	@OneToMany(mappedBy = "base")
+	@JsonManagedReference
+	@OneToMany(mappedBy = "base",fetch = FetchType.EAGER)
 	private List<Veiculo> veiculos;
 	private LocalDate alteradoEm;
 	private String alteradoPor;
@@ -97,6 +96,12 @@ public class Base implements Serializable, Registro {
 		return this.alteradoEm;
 	}
 
+	@JsonIgnore
+	@Override
+	public Usuario getUsuario() {
+		Usuario usua = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return usua;
+	}
 
 
 	@Override

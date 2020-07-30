@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Motorista
@@ -104,6 +105,11 @@ public class Motorista implements Serializable, Registro {
 		return "Motorista [id=" + id + ", base=" + base + ", nome=" + nome + ", cpf=" + cpf + ", categoriaCnh="
 				+ categoriaCnh + ", dataNascimento=" + dataNascimento + ", celular=" + celular + ", criandoEm="
 				+ criandoEm + "]";
+	}
+	@Override
+	public Usuario getUsuario() {
+		Usuario usua = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return usua;
 	}
 
 	
